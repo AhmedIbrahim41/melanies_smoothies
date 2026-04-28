@@ -1,6 +1,5 @@
 # Import python packages.
 import streamlit as st
-from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
 
 
@@ -28,7 +27,7 @@ ingredients_list = st.multiselect(
     )
 if ingredients_list:
 
-    ingredients_string = ''
+    ingredients_string = ''              
 
     for fruit_chosen in ingredients_list:
         ingredients_string += fruit_chosen + ' '
@@ -45,3 +44,7 @@ if ingredients_list:
     if time_to_insert:
         session.sql(my_insert_stmt).collect()
         st.success(f'Your Smoothie is ordered,  {name_on_order}!', icon="✅")
+
+
+ cnx = st.connection("snowflake")
+ session = cnx.session()
